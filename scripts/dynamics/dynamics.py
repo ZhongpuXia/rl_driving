@@ -25,6 +25,8 @@ class Dynamics(object):
 	def step(self, action):
 		self._timestamp += self._period
 		t = np.linspace(0, self._period, 20)
+		if not isinstance(action, tuple):
+			action = (action,)
 		sol = odeint(self.dynamics, self._state, t, args=action)
 		self._state = sol[-1, :]
 		return self._state
